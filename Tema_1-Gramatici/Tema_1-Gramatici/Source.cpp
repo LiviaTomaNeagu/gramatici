@@ -10,5 +10,8 @@ void PrintMenu()
 
 int main()
 {
-
+	Grammar grammar;
+	grammar.ReadGrammar();
+	if(grammar.VerifyGrammar())
+		grammar.PrintGrammar();
 }
