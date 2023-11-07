@@ -8,7 +8,7 @@ class Grammar
 {
 private:
 	std::vector<char> m_Vn, m_Vt;
-	std::vector<std::string, std::string> m_P;
+	std::vector<char, std::string> m_P;
 	char m_S;
 public:
 	Grammar() {};
