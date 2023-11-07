@@ -5,6 +5,7 @@
 #include<algorithm>
 #include<random>
 #include<fstream>
+#include<string>
 
 class Grammar
 {
@@ -21,9 +22,9 @@ public:
 	std::string GenerateWord();
 	void RemoveAppearances(std::string& str, char toFind);
 	void findProd(std::vector<int>& vectProd, std::string myWord);
-	int rrandom(const int& size);
-	bool replaceStr(std::string& str, const std::string& from, const std::string& to);
-
+	int random(const int& size);
+	bool replaceStr(std::string& myWord, const char& from, const std::string& to);
+	bool AllTerminate(const std::string& myWord) const;
 	
 };
 

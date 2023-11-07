@@ -12,6 +12,9 @@ int main()
 {
 	Grammar grammar;
 	grammar.ReadGrammar();
-	if(grammar.VerifyGrammar())
+	if (grammar.VerifyGrammar())
+	{
 		grammar.PrintGrammar();
+		grammar.GenerateWord();
+	}
 }

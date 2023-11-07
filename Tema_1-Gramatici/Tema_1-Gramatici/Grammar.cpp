@@ -139,13 +139,12 @@ bool Grammar::IsRegular()
 std::string Grammar::GenerateWord()
 {
 	std::string myWord;
-	myWord[0] = m_S;
+	myWord.push_back(m_S);
 	std::vector<int> prodVector;
-	int i = 0;
 	findProd(prodVector, myWord);
-	replaceStr(myWord, m_start, m_productii[rrandom(prodVector.size())].second);
-	std::cout << m_start << " -> " << myWord;
-	while (!allTerminate(myWord))
+	replaceStr(myWord, m_S, m_P[random(prodVector.size())].second);
+	std::cout << m_S << " -> " << myWord;
+	while (!AllTerminate(myWord))
 	{
 		prodVector.clear();
 		findProd(prodVector, myWord);
@@ -154,8 +153,8 @@ std::string Grammar::GenerateWord()
 			std::cout << "\nNo rules to apply in this situation!\n\n";
 			return "";
 		}
-		int randomPosition = rrandom(prodVector.size());
-		replaceStr(myWord, m_productii[prodVector[randomPosition]].first, m_productii[prodVector[randomPosition]].second);
+		int randomPosition = random(prodVector.size());
+		replaceStr(myWord, m_P[prodVector[randomPosition]].first, m_P[prodVector[randomPosition]].second);
 		std::cout << " -> " << myWord;
 	}
 	return myWord;
@@ -174,23 +173,55 @@ void Grammar::findProd(std::vector<int>& vectProd, std::string myWord)
 	//vectProd has the position of the rules that can be applied for myWord.
 	for (int i = 0; i < m_P.size(); i++)
 	{
-		if (myWord.find(m_P[i].first) != std::string::npos)
+		bool canUseRule = false;
+		for (int j = 0; j < myWord.size(); j++)
+		{
+			if (myWord[j] == m_P[i].first)
+			{
+				canUseRule = true;
+			}
+		}
+		if (canUseRule)
 		{
 			vectProd.push_back(i);
 		}
 	}
 }
 
-int Grammar::rrandom(const int& size)
+int Grammar::random(const int& size)
 {
 	std::random_device rd;
 	std::mt19937 eng(rd());
 	std::uniform_int_distribution<> distr(0, size - 1);
 	return distr(eng);
-	return 0;
 }
 
-bool Grammar::replaceStr(std::string& str, const std::string& from, const std::string& to)
+bool Grammar::replaceStr(std::string& myWord, const char& from, const std::string& to)
 {
+	std::vector<int> positions;
+	for (int i = 0; i < myWord.size(); i++)
+	{
+		if (myWord[i] == from)
+		{
+			positions.push_back(i);
+		}
+	}
+	int pos = positions[random(positions.size())];
+	myWord.replace(pos, 1, to);
+	/*std::string aux = myWord.substr(pos + 1, myWord.size() - pos - 1);
+	myWord.erase
+	myWord*/
 	return false;
+}
+
+bool Grammar::AllTerminate(const std::string& myWord) const
+{
+	for (auto i : myWord)
+	{
+		if (find(m_Vt.begin(), m_Vt.end(), i) == m_Vt.end())
+		{
+			return false;
+		}
+	}
+	return true;
 }
