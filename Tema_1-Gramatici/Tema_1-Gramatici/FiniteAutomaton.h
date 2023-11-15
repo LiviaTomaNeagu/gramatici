@@ -3,6 +3,8 @@
 #include<vector>
 #include<algorithm>
 #include<map>
+#include<tuple>
+#include<stack>
 
 class FiniteAutomaton
 {
@@ -14,11 +16,12 @@ private:
 	std::vector<std::string> m_Finals;
 
 public:
-	FiniteAutomaton() {};
+	FiniteAutomaton();
 	bool VerifyAutomaton();
 	void PrintAutomaton();
-	bool CheckWord();
+	bool CheckWord(std::string word);
 	bool IsDeterministic();
+	bool generate(std::string, std::string, std::stack<std::tuple<std::string, std::string, int >>&, int);
 
 };
 
