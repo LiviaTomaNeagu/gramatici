@@ -21,7 +21,46 @@ FiniteAutomaton::FiniteAutomaton()
 
 bool FiniteAutomaton::VerifyAutomaton()
 {
-    return false;
+    //Rule1 - m_Q is not empty
+    if (m_Q.empty())
+    {
+        return false;
+    }
+    //de intrebat daca mai trebuie verificat ceva
+    //Rule2 - m_Sigma is not empty
+    if (m_Sigma.empty())
+    {
+        return false;
+    }
+
+    //Rule3 - m_Initial is in m_Q
+    if (find(m_Q.begin(), m_Q.end(), m_Initial) == m_Q.end())
+    {
+        return false;
+    }
+
+    //Rule4 - m_F has or is equal to m_Q
+    for (auto status : m_Finals)
+    {
+        if (find(m_Q.begin(), m_Q.end(), status) == m_Q.end())
+        {
+            return false;
+        }
+    }
+
+    //Rule5 - the key in map is valid
+    for (auto it : m_Delta)
+    {
+        if (find(m_Q.begin(), m_Q.end(), it.first.first) == m_Q.end())
+        {
+            return false;
+        }
+        if (find(m_Sigma.begin(), m_Sigma.end(), it.first.second) == m_Sigma.end())
+        {
+            return false;
+        }
+    }
+    return true;
 }
 
 void FiniteAutomaton::PrintAutomaton()

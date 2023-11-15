@@ -18,5 +18,6 @@ int main()
 		grammar.GenerateWord();
 	}*/
 	FiniteAutomaton automat;
-	std::cout << automat.CheckWord("1010");
+	std::cout << automat.VerifyAutomaton();
+	//std::cout << automat.CheckWord("1010");
 }
