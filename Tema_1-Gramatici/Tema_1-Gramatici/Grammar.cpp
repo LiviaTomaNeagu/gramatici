@@ -1,4 +1,4 @@
-#include "Grammar.h"
+﻿#include "Grammar.h"
 
 void Grammar::ReadGrammar()
 {
@@ -131,10 +131,38 @@ bool Grammar::VerifyGrammar()
 	return true;
 }
 
+
 bool Grammar::IsRegular()
 {
-	return false;
+	
+	for (auto production : m_P)
+	{
+		char leftSymbol = production.first;
+		std::string rightSide = production.second;
+
+		if (rightSide.size() < 1 || rightSide.size() > 2)
+		{
+			std::cout << "Not regular. Too many/few characters.";
+			return false;
+		}
+
+		if (find(m_Vt.begin(), m_Vt.end(), rightSide[0]) == m_Vt.end())
+		{
+			std::cout << "Not regular. First character is not in VT!";
+			return false;
+		}
+
+		if (rightSide.size() == 2 && find(m_Vn.begin(), m_Vn.end(), rightSide[1]) == m_Vn.end())
+		{
+			std::cout << "Not regular. Second character is not in VN!";
+			return false;
+		}
+	}
+	std::cout << "The grammar is regular.\n";
+	return true;
 }
+
+
 
 std::string Grammar::GenerateWord()
 {
@@ -225,3 +253,4 @@ bool Grammar::AllTerminate(const std::string& myWord) const
 	}
 	return true;
 }
+
