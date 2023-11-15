@@ -16,5 +16,12 @@ bool FiniteAutomaton::CheckWord()
 
 bool FiniteAutomaton::IsDeterministic()
 {
-    return false;
+    for (auto& [key, value] : m_Delta)
+    {
+        if (value.size() != 1)
+        {
+            return false;
+        }
+    }
+    return true;
 }

@@ -9,7 +9,7 @@ class FiniteAutomaton
 private:
 	std::vector<std::string> m_Q;
 	std::vector<char> m_Sigma;
-	std::map<std::pair<std::string, char>, std::string> m_Delta;
+	std::map<std::pair<std::string, char>, std::vector<std::string>> m_Delta;
 	std::string m_Initial;
 	std::vector<std::string> m_Finals;
 
