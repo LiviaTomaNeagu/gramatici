@@ -26,7 +26,7 @@ bool FiniteAutomaton::VerifyAutomaton()
     {
         return false;
     }
-    //de intrebat daca mai trebuie verificat ceva
+    
     //Rule2 - m_Sigma is not empty
     if (m_Sigma.empty())
     {
@@ -59,6 +59,13 @@ bool FiniteAutomaton::VerifyAutomaton()
         {
             return false;
         }
+        for (auto i : it.second)
+        {
+            if (find(m_Q.begin(), m_Q.end(), i) == m_Q.end())
+            {
+                return false;
+            }
+        }
     }
     return true;
 }
@@ -87,6 +94,21 @@ bool FiniteAutomaton::generate(std::string currentQ, std::string word, std::stac
     }
     return true;
 
+}
+
+void FiniteAutomaton::SetInitial(const std::string& initial)
+{
+    m_Initial = initial;
+}
+
+void FiniteAutomaton::SetQ(const std::vector<std::string>& Q)
+{
+    m_Q = Q;
+}
+
+void FiniteAutomaton::SetDelta(const std::pair<std::string, char>& key, const std::string& value)
+{
+    m_Delta[key].push_back(value);
 }
 
 bool FiniteAutomaton::CheckWord(std::string word)
