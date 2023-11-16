@@ -256,10 +256,51 @@ bool Grammar::AllTerminate(const std::string& myWord) const
 
 std::string Grammar::generateT()
 {
-	std::string T("t");
+	char T('t');
 	while (find(m_Vn.begin(), m_Vn.end(), T) != m_Vn.end())
 	{
-		T[0]++;
+		T++;
 	}
-	return T;
+	return std::string(1,T);
+}
+
+
+
+FiniteAutomaton Grammar::GrammarToAutomaton()
+{
+	FiniteAutomaton automaton;
+	if (!IsRegular())
+		return FiniteAutomaton();
+	std::string T = generateT();
+
+	std::string auxString;
+	std::vector<std::string> auxVector;
+
+	automaton.SetInitial(std::string(1, m_S));
+
+	for (char character : m_Vn)
+	{
+		auxVector.push_back(std::string(1, character));
+	}
+	automaton.SetQ(auxVector);
+
+	automaton.addFinal(T);
+
+	if (IsLamda())
+		automaton.addFinal(std::string(1, m_S));
+
+
+	for (auto [net, word] : m_P)
+	{
+		if (word.size() == 1)
+			automaton.SetDelta({ std::string(1,net), word[0] }, T);
+		else automaton.SetDelta({ std::string(1, net), word[0] }, std::string(1,word[1]));
+	}
+
+
+}
+
+bool Grammar::IsLamda()
+{
+	return !(find(m_Vt.begin(), m_Vt.end(), '#') == m_Vt.end());
 }

@@ -6,6 +6,7 @@
 #include<random>
 #include<fstream>
 #include<string>
+#include"FiniteAutomaton.h"
 
 class Grammar
 {
@@ -26,6 +27,8 @@ public:
 	bool replaceStr(std::string& myWord, const char& from, const std::string& to);
 	bool AllTerminate(const std::string& myWord) const;
 	std::string generateT();
+	FiniteAutomaton GrammarToAutomaton();
+	bool IsLamda();
 	
 };
 
