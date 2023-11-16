@@ -254,3 +254,12 @@ bool Grammar::AllTerminate(const std::string& myWord) const
 	return true;
 }
 
+std::string Grammar::generateT()
+{
+	std::string T("t");
+	while (find(m_Vn.begin(), m_Vn.end(), T) != m_Vn.end())
+	{
+		T[0]++;
+	}
+	return T;
+}
