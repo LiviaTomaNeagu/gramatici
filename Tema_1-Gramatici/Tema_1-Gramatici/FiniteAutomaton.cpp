@@ -10,7 +10,7 @@ FiniteAutomaton::FiniteAutomaton()
     m_Delta[{"q0", '0'}].push_back("q0");
     m_Delta[{"q0", '1'}].push_back("q0");
     m_Delta[{"q0", '1'}].push_back("q1");
-   // m_Delta[{"q1", '0'}].push_back("\0");
+    //m_Delta[{"q1", '0'}].push_back("\0");
     m_Delta[{"q1", '1'}].push_back("q3");
     m_Delta[{"q2", '0'}].push_back("q2");
     m_Delta[{"q2", '1'}].push_back("q3");
@@ -109,6 +109,11 @@ void FiniteAutomaton::SetQ(const std::vector<std::string>& Q)
 void FiniteAutomaton::SetDelta(const std::pair<std::string, char>& key, const std::string& value)
 {
     m_Delta[key].push_back(value);
+}
+
+void FiniteAutomaton::addFinal(const std::string& string)
+{
+    m_Finals.push_back(string);
 }
 
 bool FiniteAutomaton::CheckWord(std::string word)
