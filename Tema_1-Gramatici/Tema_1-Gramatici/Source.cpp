@@ -18,8 +18,7 @@ int main()
 	//	//grammar.PrintGrammar();
 	//	//grammar.GenerateWord();
 	//}
-	FiniteAutomaton automat;
-	automat = grammar.GrammarToAutomaton();
+	FiniteAutomaton automat(grammar.GrammarToAutomaton());
 	automat.PrintAutomaton();
 	//std::cout << automat.VerifyAutomaton();
 	//std::cout << automat.CheckWord("1010");

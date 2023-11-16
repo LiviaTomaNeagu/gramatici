@@ -277,12 +277,20 @@ FiniteAutomaton Grammar::GrammarToAutomaton()
 	std::vector<std::string> auxVector;
 
 	automaton.SetInitial(std::string(1, m_S));
+	
 
 	for (char character : m_Vn)
 	{
 		auxVector.push_back(std::string(1, character));
 	}
 	automaton.SetQ(auxVector);
+
+	std::vector<char> vectorAux;
+	for (char character : m_Vt)
+	{
+		vectorAux.push_back(character);
+	}
+	automaton.SetSigma(vectorAux);
 
 	automaton.addFinal(T);
 
@@ -297,6 +305,7 @@ FiniteAutomaton Grammar::GrammarToAutomaton()
 		else automaton.SetDelta({ std::string(1, net), word[0] }, std::string(1,word[1]));
 	}
 
+	return automaton;
 
 }
 

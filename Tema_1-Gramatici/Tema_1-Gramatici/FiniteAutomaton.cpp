@@ -19,6 +19,15 @@ FiniteAutomaton::FiniteAutomaton()
     //m_Delta[{"q3", '1'}].push_back("q2");
 }
 
+FiniteAutomaton::FiniteAutomaton(const FiniteAutomaton& other)
+{
+    m_Q = other.m_Q;
+    m_Sigma = other.m_Sigma;
+    m_Delta = other.m_Delta;
+    m_Initial = other.m_Initial;
+    m_Finals = other.m_Finals;
+}
+
 bool FiniteAutomaton::VerifyAutomaton()
 {
     //Rule1 - m_Q is not empty
@@ -144,6 +153,11 @@ void FiniteAutomaton::SetQ(const std::vector<std::string>& Q)
 void FiniteAutomaton::SetDelta(const std::pair<std::string, char>& key, const std::string& value)
 {
     m_Delta[key].push_back(value);
+}
+
+void FiniteAutomaton::SetSigma(const std::vector<char>& sigma)
+{
+    m_Sigma = sigma;
 }
 
 void FiniteAutomaton::addFinal(const std::string& string)

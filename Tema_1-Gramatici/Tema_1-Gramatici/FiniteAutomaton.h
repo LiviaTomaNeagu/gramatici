@@ -17,6 +17,7 @@ private:
 
 public:
 	FiniteAutomaton();
+	FiniteAutomaton(const FiniteAutomaton& other);
 	bool VerifyAutomaton();
 	void PrintAutomaton();
 	bool CheckWord(std::string word);
@@ -27,10 +28,8 @@ public:
 	void SetInitial(const std::string&);
 	void SetQ(const std::vector<std::string>&);
 	void SetDelta(const std::pair<std::string, char>&, const std::string&);
-	//setSigma
+	void SetSigma(const std::vector<char>&);
 	void addFinal(const std::string&);
-	
+
 	FiniteAutomaton& operator=(const FiniteAutomaton& other);
-
 };
-
