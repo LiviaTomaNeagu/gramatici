@@ -10,14 +10,17 @@ void PrintMenu()
 
 int main()
 {
-	/*Grammar grammar;
+	Grammar grammar;
 	grammar.ReadGrammar();
-	if (grammar.VerifyGrammar())
-	{
-		grammar.PrintGrammar();
-		grammar.GenerateWord();
-	}*/
+	grammar.PrintGrammar();
+	//if (grammar.VerifyGrammar())
+	//{
+	//	//grammar.PrintGrammar();
+	//	//grammar.GenerateWord();
+	//}
 	FiniteAutomaton automat;
-	std::cout << automat.VerifyAutomaton();
+	automat = grammar.GrammarToAutomaton();
+	automat.PrintAutomaton();
+	//std::cout << automat.VerifyAutomaton();
 	//std::cout << automat.CheckWord("1010");
 }

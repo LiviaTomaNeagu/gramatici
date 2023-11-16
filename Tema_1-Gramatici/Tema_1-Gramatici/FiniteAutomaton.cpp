@@ -2,21 +2,21 @@
 
 FiniteAutomaton::FiniteAutomaton()
 {
-    m_Q = { "q0", "q1", "q2", "q3" };
-    m_Sigma = { '0', '1' };
-    m_Initial = "q0";
-    m_Finals = { "q2" };
-    //m_Delta.emplace({ {"qo", '0'}, {"q0"} });
-    m_Delta[{"q0", '0'}].push_back("q0");
-    m_Delta[{"q0", '1'}].push_back("q0");
-    m_Delta[{"q0", '1'}].push_back("q1");
-    //m_Delta[{"q1", '0'}].push_back("\0");
-    m_Delta[{"q1", '1'}].push_back("q3");
-    m_Delta[{"q2", '0'}].push_back("q2");
-    m_Delta[{"q2", '1'}].push_back("q3");
-    m_Delta[{"q3", '0'}].push_back("q2");
-    m_Delta[{"q3", '1'}].push_back("q1");
-    m_Delta[{"q3", '1'}].push_back("q2");
+    //m_Q = { "q0", "q1", "q2", "q3" };
+    //m_Sigma = { '0', '1' };
+    //m_Initial = "q0";
+    //m_Finals = { "q2" };
+    ////m_Delta.emplace({ {"qo", '0'}, {"q0"} });
+    //m_Delta[{"q0", '0'}].push_back("q0");
+    //m_Delta[{"q0", '1'}].push_back("q0");
+    //m_Delta[{"q0", '1'}].push_back("q1");
+    ////m_Delta[{"q1", '0'}].push_back("\0");
+    //m_Delta[{"q1", '1'}].push_back("q3");
+    //m_Delta[{"q2", '0'}].push_back("q2");
+    //m_Delta[{"q2", '1'}].push_back("q3");
+    //m_Delta[{"q3", '0'}].push_back("q2");
+    //m_Delta[{"q3", '1'}].push_back("q1");
+    //m_Delta[{"q3", '1'}].push_back("q2");
 }
 
 bool FiniteAutomaton::VerifyAutomaton()
@@ -72,6 +72,41 @@ bool FiniteAutomaton::VerifyAutomaton()
 
 void FiniteAutomaton::PrintAutomaton()
 {
+    std::cout << "M = ({";
+    for (auto i : m_Q)
+    {
+        if (i != m_Q[m_Q.size() - 1])
+        {
+            std::cout << i << ", ";
+        }
+        else std::cout << i << "}, {";
+    }
+    for (auto i : m_Sigma)
+    {
+        if (i != m_Sigma[m_Sigma.size() - 1])
+        {
+            std::cout << i << ", ";
+        }
+        else std::cout << i << "}, delta, ";
+    }
+    std::cout << m_Initial << ", {";
+    for (auto i : m_Finals)
+    {
+        if (i != m_Finals[m_Finals.size() - 1])
+        {
+            std::cout << i << ", ";
+        }
+        else std::cout << i << "}), where delta is:\n";
+    }
+    for (auto [key, vector] : m_Delta)
+    {
+        auto [state, character] = key;
+        for (auto i : vector)
+        {
+            std::cout << "(" << state << ", " << character << ") = ";
+            std::cout << i << ";\n";
+        }
+    }
 }
 
 bool FiniteAutomaton::generate(std::string currentQ, std::string word, std::stack<std::tuple<std::string, std::string, int >>& memoryStack, int index)
@@ -114,6 +149,17 @@ void FiniteAutomaton::SetDelta(const std::pair<std::string, char>& key, const st
 void FiniteAutomaton::addFinal(const std::string& string)
 {
     m_Finals.push_back(string);
+}
+
+FiniteAutomaton& FiniteAutomaton::operator=(const FiniteAutomaton& other)
+{
+    m_Q = other.m_Q;
+    m_Sigma = other.m_Sigma;
+    m_Delta = other.m_Delta;
+    m_Initial = other.m_Initial;
+    m_Finals = other.m_Finals;
+    return*this;
+    // TODO: insert return statement here
 }
 
 bool FiniteAutomaton::CheckWord(std::string word)

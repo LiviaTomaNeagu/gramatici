@@ -27,9 +27,10 @@ public:
 	void SetInitial(const std::string&);
 	void SetQ(const std::vector<std::string>&);
 	void SetDelta(const std::pair<std::string, char>&, const std::string&);
+	//setSigma
 	void addFinal(const std::string&);
 	
-	//getteri
+	FiniteAutomaton& operator=(const FiniteAutomaton& other);
 
 };
 
