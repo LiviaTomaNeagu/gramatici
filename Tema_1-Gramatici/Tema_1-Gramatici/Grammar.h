@@ -21,6 +21,7 @@ public:
 	bool VerifyGrammar();
 	bool IsRegular();
 	std::string GenerateWord();
+	void GenerateNWords(int n);
 	void RemoveAppearances(std::string& str, char toFind);
 	void findProd(std::vector<int>& vectProd, std::string myWord);
 	int random(const int& size);

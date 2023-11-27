@@ -189,6 +189,21 @@ std::string Grammar::GenerateWord()
 	return std::string();
 }
 
+void Grammar::GenerateNWords(int number)
+{
+	std::string word;
+	int generatedWords = 0;
+	while (generatedWords != number)
+	{
+		word = GenerateWord();
+		if (word.size() != 0)
+		{
+			std::cout << "\nThe generated word is " << word << ".\n";
+			generatedWords++;
+		}
+	}
+}
+
 void Grammar::RemoveAppearances(std::string& str, char toFind)
 {
 	for (int i = 0; i < str.size(); i++)
