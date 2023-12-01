@@ -1,6 +1,5 @@
 #include"FiniteAutomaton.h"
 #include"Grammar.h"
-#include<string>
 
 void PrintMenu()
 {
@@ -21,7 +20,6 @@ int main()
 	if (grammar.VerifyGrammar() && grammar.IsRegular())
 	{
 		std::cout << "This is an accurate and regular grammar.\n";
-		
 
 		//declarations of variables
 		char menu;
@@ -88,16 +86,11 @@ int main()
 			std::cout << "\nDo you want to choose another option?\n";
 			std::string option;
 			std::cin >> option;
-			//if (strcasecmp(option, "no") == 0)
-			if(option == "no")
+			if (option == "no")
+			{
 				moreOptions = false;
+			}
 			std::cout << "\n";
 		}
-		
 	}
-
-
-	//de verificat un cuvant fals
-	//de verificat automatul? unde? 
-	
 }

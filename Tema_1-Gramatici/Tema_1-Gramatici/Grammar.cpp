@@ -169,20 +169,20 @@ std::string Grammar::GenerateWord()
 	std::string myWord;
 	myWord.push_back(m_S);
 	std::vector<int> prodVector;
-	findProd(prodVector, myWord);
-	replaceStr(myWord, m_S, m_P[random(prodVector.size())].second);
+	FindProd(prodVector, myWord);
+	ReplaceString(myWord, m_S, m_P[Random(prodVector.size())].second);
 	std::cout << m_S << " -> " << myWord;
 	while (!AllTerminate(myWord))
 	{
 		prodVector.clear();
-		findProd(prodVector, myWord);
+		FindProd(prodVector, myWord);
 		if (prodVector.size() == 0)
 		{
 			std::cout << "\nNo rules to apply in this situation!\n\n";
 			return "";
 		}
-		int randomPosition = random(prodVector.size());
-		replaceStr(myWord, m_P[prodVector[randomPosition]].first, m_P[prodVector[randomPosition]].second);
+		int randomPosition = Random(prodVector.size());
+		ReplaceString(myWord, m_P[prodVector[randomPosition]].first, m_P[prodVector[randomPosition]].second);
 		std::cout << " -> " << myWord;
 	}
 	return myWord;
@@ -213,7 +213,7 @@ void Grammar::RemoveAppearances(std::string& str, char toFind)
 			str.erase(str.begin() + i, str.begin() + i + 1);
 }
 
-void Grammar::findProd(std::vector<int>& vectProd, std::string myWord)
+void Grammar::FindProd(std::vector<int>& vectProd, std::string myWord)
 {
 	//vectProd has the position of the rules that can be applied for myWord.
 	for (int i = 0; i < m_P.size(); i++)
@@ -233,7 +233,7 @@ void Grammar::findProd(std::vector<int>& vectProd, std::string myWord)
 	}
 }
 
-int Grammar::random(const int& size)
+int Grammar::Random(const int& size)
 {
 	std::random_device rd;
 	std::mt19937 eng(rd());
@@ -241,7 +241,7 @@ int Grammar::random(const int& size)
 	return distr(eng);
 }
 
-bool Grammar::replaceStr(std::string& myWord, const char& from, const std::string& to)
+bool Grammar::ReplaceString(std::string& myWord, const char& from, const std::string& to)
 {
 	std::vector<int> positions;
 	for (int i = 0; i < myWord.size(); i++)
@@ -251,7 +251,7 @@ bool Grammar::replaceStr(std::string& myWord, const char& from, const std::strin
 			positions.push_back(i);
 		}
 	}
-	int pos = positions[random(positions.size())];
+	int pos = positions[Random(positions.size())];
 	myWord.replace(pos, 1, to);
 	/*std::string aux = myWord.substr(pos + 1, myWord.size() - pos - 1);
 	myWord.erase
@@ -271,7 +271,7 @@ bool Grammar::AllTerminate(const std::string& myWord) const
 	return true;
 }
 
-std::string Grammar::generateT()
+std::string Grammar::GenerateT()
 {
 	char T('t');
 	while (find(m_Vn.begin(), m_Vn.end(), T) != m_Vn.end())
@@ -282,13 +282,12 @@ std::string Grammar::generateT()
 }
 
 
-
 FiniteAutomaton Grammar::GrammarToAutomaton()
 {
 	FiniteAutomaton automaton;
 	if (!IsRegular())
 		return FiniteAutomaton();
-	std::string T = generateT();
+	std::string T = GenerateT();
 
 	std::string auxString;
 	std::vector<std::string> auxVector;
@@ -309,11 +308,12 @@ FiniteAutomaton Grammar::GrammarToAutomaton()
 	}
 	automaton.SetSigma(vectorAux);
 
-	automaton.addFinal(T);
+	automaton.AddFinal(T);
 
 	if (IsLamda())
-		automaton.addFinal(std::string(1, m_S));
-
+	{
+		automaton.AddFinal(std::string(1, m_S));
+	}
 
 	for (auto [net, word] : m_P)
 	{

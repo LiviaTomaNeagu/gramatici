@@ -101,7 +101,7 @@ void FiniteAutomaton::PrintAutomaton()
     }
 }
 
-bool FiniteAutomaton::generate(std::string currentQ, std::string word, std::stack<std::tuple<std::string, std::string, int >>& memoryStack, int index)
+bool FiniteAutomaton::Generate(std::string currentQ, std::string word, std::stack<std::tuple<std::string, std::string, int >>& memoryStack, int index)
 {
     while (word.size() > 0) {
         
@@ -143,7 +143,7 @@ void FiniteAutomaton::SetSigma(const std::vector<char>& sigma)
     m_Sigma = sigma;
 }
 
-void FiniteAutomaton::addFinal(const std::string& string)
+void FiniteAutomaton::AddFinal(const std::string& string)
 {
     m_Finals.push_back(string);
     m_Q.push_back(string);
@@ -188,7 +188,7 @@ bool FiniteAutomaton::CheckWord(std::string word)
         std::stack<std::tuple<std::string, std::string, int >> memoryStack;
         int index = 0;
         memoryStack.push({ m_Initial, word, 0 });
-        generate(currentQ, word, memoryStack, 0);
+        Generate(currentQ, word, memoryStack, 0);
         while (!isFinal) 
         {
             for (auto index : m_Finals)
@@ -212,7 +212,7 @@ bool FiniteAutomaton::CheckWord(std::string word)
                    it = m_Delta.find(std::make_pair(std::get<0>(memoryStack.top()), std::get<1>(memoryStack.top())[0]));
             }
             std::get<2>(memoryStack.top())++;
-            generate(std::get<0>(memoryStack.top()), std::get<1>(memoryStack.top()), memoryStack, std::get<2>(memoryStack.top()));
+            Generate(std::get<0>(memoryStack.top()), std::get<1>(memoryStack.top()), memoryStack, std::get<2>(memoryStack.top()));
         } 
         return false;
     }

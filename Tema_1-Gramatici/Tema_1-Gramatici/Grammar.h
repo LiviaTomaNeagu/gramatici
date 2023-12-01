@@ -23,11 +23,11 @@ public:
 	std::string GenerateWord();
 	void GenerateNWords(int n);
 	void RemoveAppearances(std::string& str, char toFind);
-	void findProd(std::vector<int>& vectProd, std::string myWord);
-	int random(const int& size);
-	bool replaceStr(std::string& myWord, const char& from, const std::string& to);
+	void FindProd(std::vector<int>& vectProd, std::string myWord);
+	int Random(const int& size);
+	bool ReplaceString(std::string& myWord, const char& from, const std::string& to);
 	bool AllTerminate(const std::string& myWord) const;
-	std::string generateT();
+	std::string GenerateT();
 	FiniteAutomaton GrammarToAutomaton();
 	bool IsLamda();
 	

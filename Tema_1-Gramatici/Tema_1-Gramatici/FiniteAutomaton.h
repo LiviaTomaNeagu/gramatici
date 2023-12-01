@@ -22,14 +22,14 @@ public:
 	void PrintAutomaton();
 	bool CheckWord(std::string word);
 	bool IsDeterministic();
-	bool generate(std::string, std::string, std::stack<std::tuple<std::string, std::string, int >>&, int);
+	bool Generate(std::string, std::string, std::stack<std::tuple<std::string, std::string, int >>&, int);
 
 	//setteri
 	void SetInitial(const std::string&);
 	void SetQ(const std::vector<std::string>&);
 	void SetDelta(const std::pair<std::string, char>&, const std::string&);
 	void SetSigma(const std::vector<char>&);
-	void addFinal(const std::string&);
+	void AddFinal(const std::string&);
 
 	FiniteAutomaton& operator=(const FiniteAutomaton& other);
 };
