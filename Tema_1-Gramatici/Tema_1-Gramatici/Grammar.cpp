@@ -158,7 +158,7 @@ bool Grammar::IsRegular()
 			return false;
 		}
 	}
-	std::cout << "The grammar is regular.\n";
+	//std::cout << "The grammar is regular.\n";
 	return true;
 }
 
@@ -191,14 +191,16 @@ std::string Grammar::GenerateWord()
 
 void Grammar::GenerateNWords(int number)
 {
+	std::vector <std::string> generatedWordsVector;
 	std::string word;
 	int generatedWords = 0;
 	while (generatedWords != number)
 	{
 		word = GenerateWord();
-		if (word.size() != 0)
+		if (word.size() != 0 && (find(generatedWordsVector.begin(), generatedWordsVector.end(), word) == generatedWordsVector.end()))
 		{
 			std::cout << "\nThe generated word is " << word << ".\n";
+			generatedWordsVector.push_back(word);
 			generatedWords++;
 		}
 	}

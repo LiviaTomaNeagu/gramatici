@@ -1,23 +1,6 @@
 #include "FiniteAutomaton.h"
 
-FiniteAutomaton::FiniteAutomaton()
-{
-    //m_Q = { "q0", "q1", "q2", "q3" };
-    //m_Sigma = { '0', '1' };
-    //m_Initial = "q0";
-    //m_Finals = { "q2" };
-    ////m_Delta.emplace({ {"qo", '0'}, {"q0"} });
-    //m_Delta[{"q0", '0'}].push_back("q0");
-    //m_Delta[{"q0", '1'}].push_back("q0");
-    //m_Delta[{"q0", '1'}].push_back("q1");
-    ////m_Delta[{"q1", '0'}].push_back("\0");
-    //m_Delta[{"q1", '1'}].push_back("q3");
-    //m_Delta[{"q2", '0'}].push_back("q2");
-    //m_Delta[{"q2", '1'}].push_back("q3");
-    //m_Delta[{"q3", '0'}].push_back("q2");
-    //m_Delta[{"q3", '1'}].push_back("q1");
-    //m_Delta[{"q3", '1'}].push_back("q2");
-}
+FiniteAutomaton::FiniteAutomaton(){}
 
 FiniteAutomaton::FiniteAutomaton(const FiniteAutomaton& other)
 {
@@ -163,6 +146,7 @@ void FiniteAutomaton::SetSigma(const std::vector<char>& sigma)
 void FiniteAutomaton::addFinal(const std::string& string)
 {
     m_Finals.push_back(string);
+    m_Q.push_back(string);
 }
 
 FiniteAutomaton& FiniteAutomaton::operator=(const FiniteAutomaton& other)
@@ -178,6 +162,11 @@ FiniteAutomaton& FiniteAutomaton::operator=(const FiniteAutomaton& other)
 
 bool FiniteAutomaton::CheckWord(std::string word)
 {
+    for (auto letter : word)
+    {
+        if (find(m_Sigma.begin(), m_Sigma.end(),  letter) == m_Sigma.end())
+            return false;
+    }
     if (IsDeterministic()) {
         std::string currentQ = m_Initial;
         while (word.size() > 0) {
