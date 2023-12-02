@@ -21,8 +21,6 @@ public:
 	bool VerifyAutomaton();
 	void PrintAutomaton();
 	bool CheckWord(std::string word);
-	bool IsDeterministic();
-	bool Generate(std::string, std::string, std::stack<std::tuple<std::string, std::string, int >>&, int);
 
 	//setteri
 	void SetInitial(const std::string&);
@@ -32,4 +30,7 @@ public:
 	void AddFinal(const std::string&);
 
 	FiniteAutomaton& operator=(const FiniteAutomaton& other);
+private:
+	bool IsDeterministic();
+	bool Generate(std::string, std::string, std::stack<std::tuple<std::string, std::string, int >>&, int);
 };

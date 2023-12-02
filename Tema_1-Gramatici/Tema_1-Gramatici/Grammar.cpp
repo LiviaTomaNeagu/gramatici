@@ -81,7 +81,9 @@ bool Grammar::VerifyGrammar()
 		for (auto j : m_Vn)
 		{
 			if (i.first == j)
+			{
 				nFound = true;
+			}
 		}
 		if (!nFound)
 		{
@@ -90,12 +92,14 @@ bool Grammar::VerifyGrammar()
 		}
 	}
 
-	//Rule 4: At least one prod. has the start as the left member
+	//Rule 4: At least one production has the start as the left member
 	bool isStart = false;
 	for (auto i : m_P)
 	{
 		if (i.first == m_S)
+		{
 			isStart = true;
+		}
 	}
 	if (!isStart)
 	{
@@ -103,38 +107,54 @@ bool Grammar::VerifyGrammar()
 		return false;
 	}
 
-	//Rule 5: Each production contains onyl elements from Vn and Vt.
+	//Rule 5: Each production contains only elements from Vn and Vt.
 	char aux ;
 	std::string aux2;
-	for (int i=0;i<m_P.size();i++)
+	for (int i = 0; i < m_P.size(); i++)
 	{
 		aux = m_P[i].first;
 		aux2 = m_P[i].second;
 		for (auto j : m_Vn)
 		{
 			if (aux == j)
-				aux= '\0';
+			{
+				aux = '\0';
+			}
 			RemoveAppearances(aux2, j);
 		}
 		for (auto j : m_Vt)
 		{
 			RemoveAppearances(aux2, j);
 		}
-		if (aux != '\0' ||  !aux2.empty())
+		if (aux != '\0')
 		{
 			std::cout << "The productions contain invalid elements!\n";
 			return false;
 		}
+		if (!aux2.empty())
+		{
+			if (aux2.find('#') != std::string::npos)
+			{
+				if (m_P[i].second.size() != 1)
+				{
+					std::cout << "The productions contain invalid elements!\n";
+					return false;
+				}
+			}
+			else
+			{
+				std::cout << "The productions contain invalid elements!\n";
+				return false;
+			}
+		}
 	}
 
-	//std::cout << "Everything ok!\n";
 	return true;
 }
 
 
 bool Grammar::IsRegular()
 {
-	
 	for (auto production : m_P)
 	{
 		char leftSymbol = production.first;
@@ -148,13 +168,13 @@ bool Grammar::IsRegular()
 
 		if (find(m_Vt.begin(), m_Vt.end(), rightSide[0]) == m_Vt.end())
 		{
-			std::cout << "Not regular. First character is not in VT!\n";
+			std::cout << "Not regular. First character is not in Vt!\n";
 			return false;
 		}
 
 		if (rightSide.size() == 2 && find(m_Vn.begin(), m_Vn.end(), rightSide[1]) == m_Vn.end())
 		{
-			std::cout << "Not regular. Second character is not in VN!\n";
+			std::cout << "Not regular. Second character is not in Vn!\n";
 			return false;
 		}
 	}

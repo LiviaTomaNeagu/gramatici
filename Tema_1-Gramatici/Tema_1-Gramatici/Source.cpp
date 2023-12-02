@@ -16,7 +16,7 @@ int main()
 {
 	Grammar grammar;
 	grammar.ReadGrammar();
-	//grammar.PrintGrammar();
+
 	if (grammar.VerifyGrammar() && grammar.IsRegular())
 	{
 		std::cout << "This is an accurate and regular grammar.\n";

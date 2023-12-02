@@ -1,11 +1,13 @@
-2
-S A
-2
-a b
+3
+S A B
+3
+a b c
 S
-5
-S aS
-S aS
+7
 S aA
-A bA
+S a
+A aA
+A bB
 A a
+B bB
+B c
